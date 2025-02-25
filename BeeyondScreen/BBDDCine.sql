@@ -103,12 +103,12 @@ CREATE TABLE COMPANIA (
 CREATE TABLE PELICULA (
     ID_PELICULA INT PRIMARY KEY,
     TITULO NVARCHAR(255) NOT NULL,
-    ANO_LANZAMIENTO INT,
+    FECHA_LANZAMIENTO DATETIME,
     DURACION_MINUTOS INT,
     TITULO_ETIQUETA NVARCHAR(255),
     SINOPSIS NVARCHAR(MAX),
     IMG_FONDO NVARCHAR(255),
-    IMG_POSTER NVARCHAR(255)
+    IMG_POSTER NVARCHAR(255),
 );
 
 CREATE TABLE REPARTO (
@@ -265,9 +265,13 @@ INSERT INTO GENERO (ID_GENERO, NOMBRE) VALUES (37, 'Western');
 -- ====================================
 -- Insertar peliculas
 -- ====================================
-INSERT INTO PELICULA (ID_PELICULA, TITULO, ANO_LANZAMIENTO, DURACION_MINUTOS, TITULO_ETIQUETA, SINOPSIS, IMG_FONDO, IMG_POSTER)
+INSERT INTO PELICULA(ID_PELICULA,SINOPSIS,FECHA_LANZAMIENTO,DURACION_MINUTOS,TITULO_ETIQUETA,TITULO)
 VALUES
-(762509, 'Mufasa: El rey león',  2024-12-18, 118, NULL, 'Rafiki debe transmitir la leyenda de Mufasa a la joven cachorro de león Kiara, hija de Simba y Nala, y con Timón y Pumba prestando su estilo característico. Mufasa, un cachorro huérfano, perdido y solo, conoce a un simpático león llamado Taka, heredero de un linaje real. Este encuentro casual pone en marcha un viaje de un extraordinario grupo de inadaptados que buscan su destino.', 'cVh8Af7a9JMOJl75ML3Dg2QVEuq.jpg', '/dmw74cWIEKaEgl5Dv3kUTcCob6D.jpg');
+(950396,'Dos agentes de élite son secretamente asignados a torres de vigilancia en los lados opuestos de un vasto desfiladero, para proteger al mundo de un misterioso mal que acecha en su interior. Se unen en la distancia, pero han de mantenerse alerta para defenderse del enemigo invisible. Cuando se les revela una amenaza fatal para la humanidad, deben trabajar juntos y poner a prueba su fuerza física y mental para mantener el secreto del desfiladero antes de que sea demasiado tarde.',2025-02-13,127,'Nadie entra. Nada sale.','El abismo secreto'),
+(762509,'Rafiki debe transmitir la leyenda de Mufasa a la joven cachorro de león Kiara, hija de Simba y Nala, y con Timón y Pumba prestando su estilo característico. Mufasa, un cachorro huérfano, perdido y solo, conoce a un simpático león llamado Taka, heredero de un linaje real. Este encuentro casual pone en marcha un viaje de un extraordinario grupo de inadaptados que buscan su destino.',2024-12-18, 118,'','Mufasa: El rey león'),
+(1126166,'En este claustrofóbico thriller, un piloto (Mark Wahlberg) transporta en su avioneta a una teniente general (Michelle Dockery) que custodia a un testigo (Topher Grace) que va a testificar en un juicio contra la mafia. A medida que atraviesan las montañas de Alaska, las tensiones se disparan, ya que no todo el mundo a bordo es quien parece ser. Y a 3.000 metros de altura no hay escapatoria posible.',2025-01-22,91,'','Amenaza en el aire'),
+(939243,'Sonic, Knuckles y Tails se reúnen para enfrentarse a un nuevo y poderoso adversario, Shadow, un misterioso villano cuyos poderes no se parecen a nada de lo que nuestros héroes han conocido hasta ahora. Con sus facultades superadas en todos los sentidos, el Equipo Sonic tendrá que establecer una insólita alianza con la esperanza de detener a Shadow y proteger el planeta.',2024-12-19,110,'','Sonic 3: La película'),
+(1241982,'Tras recibir una inesperada llamada de sus antepasados, Vaiana debe viajar a los lejanos mares de Oceanía y adentrarse en peligrosas aguas perdidas para vivir una aventura sin precedentes.',2024-11-21,99,'','Vaiana 2');
 
 -- ====================================
 -- Insertar companias
@@ -314,33 +318,33 @@ VALUES
 ('',1991-02-05,2540694,'Emma Sidi','/9eCqMZbLum1UBFiwSQzAGvcgr3Q.jpg'),
 ('',1960-09-09,3291,'Hugh Grant','/hsSfxSHzkKJ6ZKq1Ofngcp7aAnT.jpg');
 
-INSERT INTO REPARTO (ID_PELICULA, ID_PERSONA,NOMBRE ,IMG_PERFIL,PERSONAJE)
-VALUES
-(516729,17064,'Ben Whishaw','/2GBtQ6scGeSHkX1urOP1EJbmksx.jpg','Paddington Brown (voice)'),
-(516729,19923,'Hugh Bonneville','/skbxj8MUuNiI39ZkP38uEirU0bC.jpg','Henry Brown'),
-(516729,1246,'Emily Mortimer','/6tFo75Em20OKJqygfAlHuCl05bl.jpg','Mary Brown'),
-(516729,1304662,'Samuel Joslin','/gXthNRK0BN9IqXnhKIc4glxOB7P.jpg','Jonathan Brown'),
-(516729,1304661,'Madeleine Harris','/a0leGmuuQslxiuP7g52sMxET6rm.jpg','Judy Brown'),
-(516729,3131,'Antonio Banderas','/n8YlGookYzgD3cmpMP45BYRNIoh.jpg','Hunter Cabot'),
-(516729,39187,'Olivia Colman','/1KTXGJaqWRnsoA6qeaUa7U2zkHL.jpg','Reverend Mother'),
-(516729,477,'Julie Walters','/bCTkV2OUgzbJdQEoCk3GesE4DXq.jpg','Mrs. Bird'),
-(516729,388,'Jim Broadbent','/s7lXYfrsJoGA4vKmyv61SPgABmR.jpg','Samuel Gruber'),
-(516729,2610316,'Carla Tous','/8wriPsd59p97mH9vXCq4JW5DmYz.jpg','Gina Cabot'),
-(516729,39459,'Hayley Atwell','/iQyJYuVWOA6tUxQEHt6dSuz1PoE.jpg','Madison'),
-(516729,65451,'Oliver Maltman','/wZgJ4BhseHlGOakiSMLCDUE07ic.jpg','Photo Booth (voice)'),
-(516729,54811,'Joel Fry','/4nEKEWJpaTHncCTv6zeP98V0qGI.jpg','Joe the Postman'),
-(516729,1119,'Robbie Gee','/mzzfbA0e4DWgxvIYjaryMolkiqm.jpg','Mr. Barnes'),
-(516729,145997,'Sanjeev Bhaskar','/gPFoGWj5VPm4IZVn9sMdBicVh2E.jpg','Dr. Jafri'),
-(516729,11356,'Imelda Staunton','/tABRYOHUQeaUCAqrelJV5ZHjl1W.jpg','Aunt Lucy (voice)'),
-(516729,18025,'Ben Miller','/ij5nhtBWhCaOl4IEn8XhOYAGqB1.jpg','Colonel Lancaster'),
-(516729,47730,'Jessica Hynes','/eyJ9aC1FXyPAI5xose0HqA26bnm.jpg','Miss Kitts'),
-(516729,3037851,'Ella Dacres','/x9yadKWs3mWLXEZ6gcgvgCzhbr1.jpg','Student Rep'),
-(516729,2329015,'Aloreia Spencer',NULL,'Madison’s Assistant'),
-(516729,110076,'Nicholas Burns','/x8ETzUUeTrmBRuVdvPEaZ23Focf.jpg','Mr. Wilson'),
-(516729,2825348,'Ashleigh Reynolds','/jqZs6a76NM6Yks7fGy5azmaYbZD.jpg','Mr. Smith'),
-(516729,150072,'Amit Shah','/s6zx8CumxTGq0kULxp6H6nc1DDA.jpg','Zayden'),
-(516729,3250136,'Ella Bruccoleri','/xVqbUOELKqxhEdqAz5IXhFYp7Uy.jpg','Rosita'),
-(516729,1456143,'Carlos Carlín','/uRPeNEIcDtyjBY00u0oDAW645PV.jpg','Passport Control Officer'),
-(516729,114253,'Simon Farnaby','/xslxzBfDYYHNFnAMWyjjxFUTlEk.jpg','Barry the Air Steward'),
-(516729,2540694,'Emma Sidi','/9eCqMZbLum1UBFiwSQzAGvcgr3Q.jpg','Elderly Resident Bear 3 (voice)'),
-(516729,3291,'Hugh Grant','/hsSfxSHzkKJ6ZKq1Ofngcp7aAnT.jpg','Phoenix Buchanan');
+--INSERT INTO REPARTO (ID_PELICULA, ID_PERSONA,NOMBRE ,IMG_PERFIL,PERSONAJE)
+--VALUES
+--(516729,17064,'Ben Whishaw','/2GBtQ6scGeSHkX1urOP1EJbmksx.jpg','Paddington Brown (voice)'),
+--(516729,19923,'Hugh Bonneville','/skbxj8MUuNiI39ZkP38uEirU0bC.jpg','Henry Brown'),
+--(516729,1246,'Emily Mortimer','/6tFo75Em20OKJqygfAlHuCl05bl.jpg','Mary Brown'),
+--(516729,1304662,'Samuel Joslin','/gXthNRK0BN9IqXnhKIc4glxOB7P.jpg','Jonathan Brown'),
+--(516729,1304661,'Madeleine Harris','/a0leGmuuQslxiuP7g52sMxET6rm.jpg','Judy Brown'),
+--(516729,3131,'Antonio Banderas','/n8YlGookYzgD3cmpMP45BYRNIoh.jpg','Hunter Cabot'),
+--(516729,39187,'Olivia Colman','/1KTXGJaqWRnsoA6qeaUa7U2zkHL.jpg','Reverend Mother'),
+--(516729,477,'Julie Walters','/bCTkV2OUgzbJdQEoCk3GesE4DXq.jpg','Mrs. Bird'),
+--(516729,388,'Jim Broadbent','/s7lXYfrsJoGA4vKmyv61SPgABmR.jpg','Samuel Gruber'),
+--(516729,2610316,'Carla Tous','/8wriPsd59p97mH9vXCq4JW5DmYz.jpg','Gina Cabot'),
+--(516729,39459,'Hayley Atwell','/iQyJYuVWOA6tUxQEHt6dSuz1PoE.jpg','Madison'),
+--(516729,65451,'Oliver Maltman','/wZgJ4BhseHlGOakiSMLCDUE07ic.jpg','Photo Booth (voice)'),
+--(516729,54811,'Joel Fry','/4nEKEWJpaTHncCTv6zeP98V0qGI.jpg','Joe the Postman'),
+--(516729,1119,'Robbie Gee','/mzzfbA0e4DWgxvIYjaryMolkiqm.jpg','Mr. Barnes'),
+--(516729,145997,'Sanjeev Bhaskar','/gPFoGWj5VPm4IZVn9sMdBicVh2E.jpg','Dr. Jafri'),
+--(516729,11356,'Imelda Staunton','/tABRYOHUQeaUCAqrelJV5ZHjl1W.jpg','Aunt Lucy (voice)'),
+--(516729,18025,'Ben Miller','/ij5nhtBWhCaOl4IEn8XhOYAGqB1.jpg','Colonel Lancaster'),
+--(516729,47730,'Jessica Hynes','/eyJ9aC1FXyPAI5xose0HqA26bnm.jpg','Miss Kitts'),
+--(516729,3037851,'Ella Dacres','/x9yadKWs3mWLXEZ6gcgvgCzhbr1.jpg','Student Rep'),
+--(516729,2329015,'Aloreia Spencer',NULL,'Madison’s Assistant'),
+--(516729,110076,'Nicholas Burns','/x8ETzUUeTrmBRuVdvPEaZ23Focf.jpg','Mr. Wilson'),
+--(516729,2825348,'Ashleigh Reynolds','/jqZs6a76NM6Yks7fGy5azmaYbZD.jpg','Mr. Smith'),
+--(516729,150072,'Amit Shah','/s6zx8CumxTGq0kULxp6H6nc1DDA.jpg','Zayden'),
+--(516729,3250136,'Ella Bruccoleri','/xVqbUOELKqxhEdqAz5IXhFYp7Uy.jpg','Rosita'),
+--(516729,1456143,'Carlos Carlín','/uRPeNEIcDtyjBY00u0oDAW645PV.jpg','Passport Control Officer'),
+--(516729,114253,'Simon Farnaby','/xslxzBfDYYHNFnAMWyjjxFUTlEk.jpg','Barry the Air Steward'),
+--(516729,2540694,'Emma Sidi','/9eCqMZbLum1UBFiwSQzAGvcgr3Q.jpg','Elderly Resident Bear 3 (voice)'),
+--(516729,3291,'Hugh Grant','/hsSfxSHzkKJ6ZKq1Ofngcp7aAnT.jpg','Phoenix Buchanan');
