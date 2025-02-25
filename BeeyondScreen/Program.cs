@@ -1,3 +1,7 @@
+using BeeyondScreen.Data;
+using BeeyondScreen.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +9,9 @@ builder.Services.AddControllersWithViews();
 
 string connectionString =
     builder.Configuration.GetConnectionString("SqlCine");
+builder.Services.AddTransient<RepositoryPelicula>();
+builder.Services.AddDbContext<CineContext>
+    (options => options.UseSqlServer(connectionString));
 
 var app = builder.Build();
 
