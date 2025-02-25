@@ -1,1 +1,77 @@
-﻿<h1>Hola</h1>
+﻿@model IEnumerable<BeeyondScreen.Models.Pelicula>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdPelicula)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaLanzamiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DuracionMinutos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TituloEtiqueta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sinopsis)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImgFondo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImgPoster)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdPelicula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaLanzamiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DuracionMinutos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TituloEtiqueta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sinopsis)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImgFondo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImgPoster)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
