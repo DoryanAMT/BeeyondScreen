@@ -26,7 +26,7 @@ namespace BeeyondScreen.Models
         [Column("TITULO")]
         public string Titulo { get; set; }
         [Column("FECHA_LANZAMIENTO")]
-        public DateTime FechaLanzamiento { get; set; }
+        public DateOnly FechaLanzamiento { get; set; }
         [Column("DURACION_MINUTOS")]
         public int DuracionMinutos { get; set; }
         [Column("TITULO_ETIQUETA")]

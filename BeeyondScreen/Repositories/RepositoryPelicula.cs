@@ -14,6 +14,7 @@ namespace BeeyondScreen.Repositories
         public async Task<List<Pelicula>> GetPeliculasAsync()
         {
             var consulta = from datos in this.context.Peliculas
+                           orderby datos.FechaLanzamiento descending
                            select datos;
             return await consulta.ToListAsync();
         }
