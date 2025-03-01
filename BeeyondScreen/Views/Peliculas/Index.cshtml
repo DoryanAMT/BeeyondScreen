@@ -1,77 +1,37 @@
-﻿@model IEnumerable<BeeyondScreen.Models.Pelicula>
+﻿@model List<Pelicula>
 
-@{
-    ViewData["Title"] = "Index";
+<h1>Peliculas</h1>
+
+<a class="btn btn-success"
+   asp-controller="Peliculas"
+   asp-action="Create">
+    Create new Pelicula
+</a>
+
+@foreach(Pelicula pelicula in Model){
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">@pelicula.Titulo</h5>
+            <p class="card-text">@pelicula.TituloEtiqueta</p>
+            <a class="btn btn-primary"
+            asp-controller="Peliculas"
+            asp-action="Details"
+            asp-route-idPelicula="@pelicula.IdPelicula">
+                Detalle
+            </a>
+            <a class="btn btn-warning"
+               asp-controller="Peliculas"
+               asp-action="Update"
+               asp-route-idPelicula="@pelicula.IdPelicula">
+                Update
+            </a>
+            <a class="btn btn-danger"
+               asp-controller="Peliculas"
+               asp-action="Delete"
+               asp-route-idPelicula="@pelicula.IdPelicula">
+                Delete
+            </a>
+        </div>
+    </div>
 }
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IdPelicula)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Titulo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaLanzamiento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DuracionMinutos)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TituloEtiqueta)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Sinopsis)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImgFondo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImgPoster)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdPelicula)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Titulo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaLanzamiento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DuracionMinutos)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TituloEtiqueta)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sinopsis)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImgFondo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImgPoster)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>

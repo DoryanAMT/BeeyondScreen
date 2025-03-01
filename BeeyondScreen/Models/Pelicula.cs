@@ -21,7 +21,7 @@ namespace BeeyondScreen.Models
     public class Pelicula
     {
         [Key]
-        [Column("ID_PELICULA")]
+        [Column("PELICULA_ID")]
         public int IdPelicula { get; set; }
         [Column("TITULO")]
         public string Titulo { get; set; }

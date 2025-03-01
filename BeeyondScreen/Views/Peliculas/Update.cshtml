@@ -1,0 +1,33 @@
+﻿@model Pelicula
+
+<h1>Update Pelicula</h1>
+
+<form method="post">
+    <label>Id Pelicula</label>
+    <input class="form form-control" type="text" name="idpelicula"
+           value="@Model.IdPelicula" />
+    <label>Titulo</label>
+    <input class="form form-control" type="text" name="titulo"
+           value="@Model.Titulo" />
+    <label>Fecha Lanzamiento</label>
+    <input class="form form-control" type="date" name="fechalanzamiento"
+           value="@Model.FechaLanzamiento" />
+    <label>Duracion Minutos</label>
+    <input class="form form-control" type="text" name="duracionminutos"
+           value="@Model.DuracionMinutos" />
+    <label>Titulo Etiqueta</label>
+    <input class="form form-control" type="text" name="tituloetiqueta"
+           value="@Model.TituloEtiqueta" />
+    <label>Sinopsis</label>
+    <input class="form form-control" type="text" name="sinopsis"
+           value="@Model.Sinopsis" />
+    <label>Imagen fondo</label>
+    <input class="form form-control" type="text" name="imgfondo"
+           value="@Model.ImgFondo" />
+    <label>Imagen poster</label>
+    <input class="form form-control" type="text" name="imgposter"
+           value="@Model.ImgPoster" />
+    <button class="btn btn-warning">
+        Update
+    </button>
+</form>
