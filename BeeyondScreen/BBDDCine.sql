@@ -168,7 +168,7 @@ CREATE TABLE VERSION (
 
 -- Tabla de Horarios de Películas
 CREATE TABLE HORARIO_PELICULA (
-    HORARIO_ID INT IDENTITY(1,1) PRIMARY KEY,
+    HORARIO_ID INT PRIMARY KEY,
     PELICULA_ID INT NOT NULL,
     SALA_ID INT NOT NULL,
     VERSION_ID INT NOT NULL,
@@ -252,6 +252,14 @@ END
 
 CLOSE CURSOR_SALAS;
 DEALLOCATE CURSOR_SALAS;
+
+-- ====================================
+-- Insertar Versiones
+-- ====================================
+
+INSERT INTO VERSION (VERSION_ID, IDIOMA, FORMATO)
+VALUES (1, 'Español', '2D'),
+       (2, 'Inglés', '3D');
 
 -- ====================================
 -- Insertar peliculas

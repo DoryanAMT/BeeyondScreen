@@ -8,5 +8,6 @@ namespace BeeyondScreen.Data
         public CineContext(DbContextOptions options) 
             :base(options){ }
         public DbSet<Pelicula> Peliculas { get; set; }
+        public DbSet<HorarioPelicula> HorarioPeliculas { get; set; }
     }
 }
