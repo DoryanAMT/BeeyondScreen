@@ -9,5 +9,6 @@ namespace BeeyondScreen.Data
             :base(options){ }
         public DbSet<Pelicula> Peliculas { get; set; }
         public DbSet<HorarioPelicula> HorarioPeliculas { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
     }
 }

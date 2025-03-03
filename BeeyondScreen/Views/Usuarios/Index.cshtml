@@ -1,0 +1,74 @@
+﻿@model IEnumerable<BeeyondScreen.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UsuarioId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Correo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContrasenaHash)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaCreacion)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UsuarioId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Correo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContrasenaHash)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaCreacion)
+            </td>
+            <td>
+                    <a asp-controller="Usuarios"
+                       asp-action="Details"
+                       asp-route-idUsuario="@item.UsuarioId"
+                       class="btn btn-primary">
+                        Details
+                    </a> |
+                    <a asp-controller="Usuarios"
+                       asp-action="Edit"
+                       asp-route-idUsuario="@item.UsuarioId"
+                       class="btn btn-warning">
+                       Edit
+                    </a> |
+                    <a asp-controller="Usuarios"
+                       asp-action="Delete"
+                       asp-route-idUsuario="@item.UsuarioId"
+                       class="btn btn-danger">
+                        Delete
+                    </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

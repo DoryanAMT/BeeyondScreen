@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 
@@ -21,6 +22,7 @@ namespace BeeyondScreen.Models
     [Table("HORARIO_PELICULA")]
     public class HorarioPelicula
     {
+        [Key]
         [Column("HORARIO_ID")]
         public int IdHorario { get; set; }
         [Column("PELICULA_ID")]
