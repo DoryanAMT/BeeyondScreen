@@ -348,3 +348,12 @@ VALUES
 --(516729,114253,'Simon Farnaby','/xslxzBfDYYHNFnAMWyjjxFUTlEk.jpg','Barry the Air Steward'),
 --(516729,2540694,'Emma Sidi','/9eCqMZbLum1UBFiwSQzAGvcgr3Q.jpg','Elderly Resident Bear 3 (voice)'),
 --(516729,3291,'Hugh Grant','/hsSfxSHzkKJ6ZKq1Ofngcp7aAnT.jpg','Phoenix Buchanan');
+
+-- ====================================
+-- Insertar Horarios Pelicula
+-- ====================================
+
+insert into HORARIO_PELICULA
+(HORARIO_ID, PELICULA_ID, SALA_ID, VERSION_ID, HORA_FUNCION, ASIENTOS_DISPONIBLES)
+values
+(123, 762509, 1, 1, '2025-03-03 18:30:00', 20)
