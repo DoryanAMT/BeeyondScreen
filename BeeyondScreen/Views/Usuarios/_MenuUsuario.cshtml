@@ -1,0 +1,21 @@
+﻿@{
+    Usuario usuario = Context.Session.GetObject<Usuario>("USUARIOCLIENTE");
+}
+
+@if(usuario == null){
+    <li class="nav_item">
+        <a class="nav-link text-dark"
+        asp-controller="Home"
+        asp-action="LogIn">
+        LogIn
+        </a>
+    </li>
+}else{
+    <li class="nav_item">
+        <a class="nav-link text-dark"
+           asp-controller="Home"
+           asp-action="Perfil">
+            Perfil
+        </a>
+    </li>
+}

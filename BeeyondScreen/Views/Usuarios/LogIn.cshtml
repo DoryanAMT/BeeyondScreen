@@ -1,0 +1,15 @@
+﻿@model Usuario
+
+<h1>Log In</h1>
+
+<form method="post">
+    <label>Email</label>
+    <input type="text" name="email"
+        class="form form-control" />
+    <label>Password</label>
+    <input type="text" name="Password"
+           class="form form-control" />
+    <button class="btn btn-info">LogIn</button>
+</form>
+<h2 style="color:red">@ViewData["MENSAJE"]</h2>
+
