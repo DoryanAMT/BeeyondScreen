@@ -115,7 +115,7 @@ namespace BeeyondScreen.Repositories
                 .ToListAsync();
             return consulta;
         }
-        //  CALENDARIO
+        //  CALENDARIO HORARIO SIN TERMINAR *******
         public async Task<List<Evento>> GetCalendarioAsync()
         {
             List<HorarioPelicula> horarioPeliculas = await this.GetHorarioPeliculasAsync();
@@ -132,7 +132,7 @@ namespace BeeyondScreen.Repositories
                     //SUMA EL NUMERO DE MINUTOS DE LA PELICULA
                 };
             }
-            
+            return eventos;
         }
     }
 }
