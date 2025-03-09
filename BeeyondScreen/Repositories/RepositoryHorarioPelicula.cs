@@ -1,7 +1,10 @@
 ﻿using BeeyondScreen.Data;
+using BeeyondScreen.DTOs;
 using BeeyondScreen.Models;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Repositories;
+using System.Collections.Immutable;
 
 namespace BeeyondScreen.Repositories
 {
@@ -30,7 +33,7 @@ namespace BeeyondScreen.Repositories
             return await consulta.FirstOrDefaultAsync();
         }
         public async Task InserHorarioPeliculaAsync
-            (int idHorarioPelicula, int idPelicula, int idSala, 
+            (int idHorarioPelicula, int idPelicula, int idSala,
             int idVersion, DateTime horaFuncion, int asientosDisponibles)
         {
             HorarioPelicula horarioPelicula = new HorarioPelicula();
@@ -57,11 +60,79 @@ namespace BeeyondScreen.Repositories
             await this.context.SaveChangesAsync();
         }
         public async Task DeleteHorarioPeliculaAsync
-            (int idHorarioPelicula) 
+            (int idHorarioPelicula)
         {
             HorarioPelicula horarioPelicula = await this.FindHorarioPeliculaAsync(idHorarioPelicula);
             this.context.Remove(horarioPelicula);
             await this.context.SaveChangesAsync();
+        }
+        public async Task<int> GetUltimoIdHorarioPelicula()
+        {
+            var consulta = this.context.HorarioPeliculas.Any() ?
+                this.context.HorarioPeliculas.Max(x => x.IdHorario) :
+                1;
+            int ultimoId = int.Parse(consulta.ToString());
+            return ultimoId;
+        }
+
+
+
+        //  COMBO PELICULAS
+        public async Task<List<ComboPeliculas>> GetComboPeliculasAsync()
+        {
+            var consulta = await this.context.Peliculas
+                .Select(x => new ComboPeliculas
+                {
+                    Id = x.IdPelicula,
+                    Nombre = x.Titulo
+                })
+                .ToListAsync();
+            return consulta;
+        }
+        //  COMBO SALAS
+        public async Task<List<ComboSalas>> GetComboSalasAsync
+            (int idCine)
+        {
+            var consulta = await this.context.Salas
+                .Where(x => x.IdCine == idCine)
+                .Select(x => new ComboSalas
+                {
+                    Id = x.IdSala,
+                    Nombre = x.Nombre
+                })
+                .ToListAsync();
+            return consulta;
+        }
+        //  COMBO VERSIONES
+        public async Task<List<ComboVersiones>> GetComboVersionesAsync()
+        {
+            var consulta = await this.context.Versions
+                .Select(x => new ComboVersiones
+                {
+                    Id = x.IdVersion,
+                    Nombre = x.Idioma
+                })
+                .ToListAsync();
+            return consulta;
+        }
+        //  CALENDARIO
+        public async Task<List<Evento>> GetCalendarioAsync()
+        {
+            List<HorarioPelicula> horarioPeliculas = await this.GetHorarioPeliculasAsync();
+            var eventos = new List<Evento>();
+            foreach (HorarioPelicula horarioPelicula in horarioPeliculas)
+            {
+                new Evento
+                {
+                    Id = horarioPelicula.IdHorario,
+                    Titulo = horarioPelicula.IdPelicula.ToString(),
+                    FechaInicio = horarioPelicula.HoraFuncion,
+                    FechaFin = horarioPelicula.HoraFuncion,
+                    //INCLUIR LA DESCRIPCION DE LA PELICULA
+                    //SUMA EL NUMERO DE MINUTOS DE LA PELICULA
+                };
+            }
+            
         }
     }
 }

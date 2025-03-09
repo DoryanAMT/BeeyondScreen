@@ -1,6 +1,7 @@
 ﻿using BeeyondScreen.Models;
 using BeeyondScreen.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 
 namespace BeeyondScreen.Controllers
 {
@@ -57,6 +58,8 @@ namespace BeeyondScreen.Controllers
             await this.repo.DeletePeliculaAsync(idPelicula);
             return RedirectToAction("Index");
         }
+
+        
 
     }
 }

@@ -24,13 +24,20 @@ namespace BeeyondScreen.Controllers
         }
         public async Task<IActionResult> Create()
         {
+            int idCine = 1;
+            ViewData["COMBOPELICULAS"] = await this.repo.GetComboPeliculasAsync();
+            ViewData["COMBOSALAS"] = await this.repo.GetComboSalasAsync(idCine);
+            ViewData["COMBOVERSIONES"] = await this.repo.GetComboVersionesAsync();
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> Create
             (HorarioPelicula horarioPelicula)
         {
-            await this.repo.InserHorarioPeliculaAsync(horarioPelicula.IdHorario, horarioPelicula.IdPelicula,
+            //  HAY QUE IMPLEMENTAR ID CINE EN SESSION
+            
+            int ultimoId = await this.repo.GetUltimoIdHorarioPelicula();
+            await this.repo.InserHorarioPeliculaAsync(ultimoId, horarioPelicula.IdPelicula,
                 horarioPelicula.IdSala, horarioPelicula.IdVersion, horarioPelicula.HoraFuncion,
                 horarioPelicula.AsientosDisponibles);
             return RedirectToAction("Index");

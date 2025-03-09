@@ -3,34 +3,65 @@
 @{
     ViewData["Title"] = "Create";
 }
+@{
+    List<ComboPeliculas> comboPeliculas = ViewData["COMBOPELICULAS"] as List<ComboPeliculas>;
+    List<ComboSalas> comboSalas = ViewData["COMBOSALAS"] as List<ComboSalas>;
+    List<ComboVersiones> comboVersiones = ViewData["COMBOVERSIONES"] as List<ComboVersiones>;
+}
 
 <h1>Create</h1>
 
 <h4>HorarioPelicula</h4>
 <hr />
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="IdHorario" class="control-label"></label>
-                <input asp-for="IdHorario" class="form-control" />
-                <span asp-validation-for="IdHorario" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdPelicula" class="control-label"></label>
+                <label>Pelicula:</label>
+                <select name="IdPelicula"
+                    class="form form-control">
+                    @foreach (ComboPeliculas pelicula in comboPeliculas)
+                    {
+                        <option value="@pelicula.Id">
+                            @pelicula.Nombre
+                        </option>
+                    }
+                </select>
+                @* <label asp-for="IdPelicula" class="control-label"></label>
                 <input asp-for="IdPelicula" class="form-control" />
-                <span asp-validation-for="IdPelicula" class="text-danger"></span>
+                <span asp-validation-for="IdPelicula" class="text-danger"></span> *@
             </div>
             <div class="form-group">
-                <label asp-for="IdSala" class="control-label"></label>
+                <label>Sala:</label>
+                <select name="IdSala"
+                        class="form form-control">
+                    @foreach (ComboSalas sala in comboSalas)
+                    {
+                        <option value="@sala.Id">
+                            @sala.Nombre
+                        </option>
+                    }
+                </select>
+                @* <label asp-for="IdSala" class="control-label"></label>
                 <input asp-for="IdSala" class="form-control" />
-                <span asp-validation-for="IdSala" class="text-danger"></span>
+                <span asp-validation-for="IdSala" class="text-danger"></span> *@
             </div>
             <div class="form-group">
-                <label asp-for="IdVersion" class="control-label"></label>
+                <label>Version:</label>
+                <select name="IdSala"
+                        class="form form-control">
+                    @foreach (ComboVersiones version in comboVersiones)
+                    {
+                        <option value="@version.Id">
+                            @version.Nombre
+                        </option>
+                    }
+                </select>
+                @* <label asp-for="IdVersion" class="control-label"></label>
                 <input asp-for="IdVersion" class="form-control" />
-                <span asp-validation-for="IdVersion" class="text-danger"></span>
+                <span asp-validation-for="IdVersion" class="text-danger"></span> *@
             </div>
             <div class="form-group">
                 <label asp-for="HoraFuncion" class="control-label"></label>

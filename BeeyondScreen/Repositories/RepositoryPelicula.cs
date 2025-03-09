@@ -1,4 +1,5 @@
 ﻿using BeeyondScreen.Data;
+using BeeyondScreen.DTOs;
 using BeeyondScreen.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,7 @@ namespace BeeyondScreen.Repositories
         {
             this.context = context;
         }
+        //  RECUPERAR TODAS LAS PELICULAS
         public async Task<List<Pelicula>> GetPeliculasAsync()
         {
             var consulta = from datos in this.context.Peliculas
@@ -18,6 +20,7 @@ namespace BeeyondScreen.Repositories
                            select datos;
             return await consulta.ToListAsync();
         }
+        //  ENCONTRAR UN PELICULA
         public async Task<Pelicula> FindPeliculaAsync
             (int idPelicula)
         {
@@ -25,6 +28,7 @@ namespace BeeyondScreen.Repositories
                            select datos;
             return await consulta.FirstOrDefaultAsync();
         }
+        //  INSERTAR UNA PELICULA
         public async Task InsertPeliculaAsync
             (int idPelicula, string titulo, DateOnly fechaLanzamiento,
             int duracionMinutos, string tituloEtiqueta, string sinopsis,
@@ -42,6 +46,7 @@ namespace BeeyondScreen.Repositories
             await this.context.Peliculas.AddAsync(pelicula);
             await this.context.SaveChangesAsync();
         }
+        //  ACTUALIZAR UNA PELICULA
         public async Task UpdatePeliculaAsync
             (int idPelicula, string titulo, DateOnly fechaLanzamiento,
             int duracionMinutos, string tituloEtiqueta, string sinopsis,
@@ -58,6 +63,7 @@ namespace BeeyondScreen.Repositories
             pelicula.ImgPoster = imgPoster;
             await this.context.SaveChangesAsync();
         }
+        //  BORRA PELICULA
         public async Task DeletePeliculaAsync
             (int idPelicula)
         {
@@ -65,5 +71,6 @@ namespace BeeyondScreen.Repositories
             this.context.Peliculas.Remove(pelicula);
             await this.context.SaveChangesAsync();
         }
+        
     }
 }
