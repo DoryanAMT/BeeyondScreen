@@ -7,6 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+//  INCLIMOS LA SESSION Y CACHE A NUESTRO PROYECTO
+builder.Services.AddSession();
+
 string connectionString =
     builder.Configuration.GetConnectionString("SqlCine");
 builder.Services.AddTransient<RepositoryPelicula>();
@@ -31,6 +34,8 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
