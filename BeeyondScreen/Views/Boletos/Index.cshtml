@@ -1,0 +1,74 @@
+﻿@model IEnumerable<BeeyondScreen.Models.Boleto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdBoleto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdUsuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdAsiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaCompra)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (Boleto boleto in Model) {
+        <tr>
+            <td>
+                @boleto.IdBoleto
+            </td>
+            <td>
+                    @boleto.IdUsuario
+            </td>
+            <td>
+                    @boleto.IdAsiento
+            </td>
+            <td>
+                    @boleto.FechaCompra
+            </td>
+            <td>
+                    @boleto.Estado
+            </td>
+            <td>
+                    <a class="btn btn-primary"
+                       asp-controller="Boletos"
+                       asp-action="Details"
+                       asp-route-idBoleto="@boleto.IdBoleto">
+                        Detalle
+                    </a>
+                    <a class="btn btn-warning"
+                       asp-controller="Boletos"
+                       asp-action="Update"
+                       asp-route-idBoleto="@boleto.IdBoleto">
+                        Update
+                    </a>
+                    <a class="btn btn-danger"
+                       asp-controller="Boletos"
+                       asp-action="Delete"
+                       asp-route-idBoleto="@boleto.IdBoleto">
+                        Delete
+                    </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

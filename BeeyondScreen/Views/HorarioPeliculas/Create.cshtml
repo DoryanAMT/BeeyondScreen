@@ -7,6 +7,7 @@
     List<ComboPeliculas> comboPeliculas = ViewData["COMBOPELICULAS"] as List<ComboPeliculas>;
     List<ComboSalas> comboSalas = ViewData["COMBOSALAS"] as List<ComboSalas>;
     List<ComboVersiones> comboVersiones = ViewData["COMBOVERSIONES"] as List<ComboVersiones>;
+    List<Evento> eventos = ViewData["CALENDARIOHORARIOPELICULAS"] as List<Evento>;
 }
 
 <h1>Create</h1>
@@ -21,7 +22,7 @@
             <div class="form-group">
                 <label>Pelicula:</label>
                 <select name="IdPelicula"
-                    class="form form-control">
+                        class="form form-control">
                     @foreach (ComboPeliculas pelicula in comboPeliculas)
                     {
                         <option value="@pelicula.Id">
@@ -50,7 +51,7 @@
             </div>
             <div class="form-group">
                 <label>Version:</label>
-                <select name="IdSala"
+                <select name="IdVersion"
                         class="form form-control">
                     @foreach (ComboVersiones version in comboVersiones)
                     {
@@ -83,7 +84,33 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+<div id="calendario"></div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+            document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendario');
+
+            if (!calendarEl) {
+                console.error("Elemento 'calendario' no encontrado en el DOM.");
+                return;
+            }
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'es',
+                events: [
+        @foreach (var evento in eventos)
+        {
+            @: { title: "@evento.Titulo ", start: "@evento.FechaInicio.ToString("yyyy-MM-ddTHH:mm:ss")", end: "@evento.FechaFin.ToString("yyyy-MM-ddTHH:mm:ss")" },
+        }
+                ]
+            });
+
+            calendar.render();
+        });
+    </script>
 }

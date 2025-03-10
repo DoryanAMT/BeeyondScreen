@@ -66,10 +66,11 @@ namespace BeeyondScreen.Repositories
             this.context.Remove(horarioPelicula);
             await this.context.SaveChangesAsync();
         }
-        public async Task<int> GetUltimoIdHorarioPelicula()
+        //  GET UTLIMO ID HORARIO PELICULA
+        public async Task<int> GetUltimoIdHorarioPeliculaAsync()
         {
             var consulta = this.context.HorarioPeliculas.Any() ?
-                this.context.HorarioPeliculas.Max(x => x.IdHorario) :
+                this.context.HorarioPeliculas.Max(x => x.IdHorario) +1 :
                 1;
             int ultimoId = int.Parse(consulta.ToString());
             return ultimoId;
@@ -115,22 +116,33 @@ namespace BeeyondScreen.Repositories
                 .ToListAsync();
             return consulta;
         }
+
+        //  FIND PELIUCLA
+        public async Task<Pelicula> FindPeliculaAsync
+            (int idPelicula)
+        {
+            Pelicula pelicula = await this.context.Peliculas
+                .Where(x => x.IdPelicula == idPelicula)
+                .FirstOrDefaultAsync();
+            return pelicula;
+        }
         //  CALENDARIO HORARIO SIN TERMINAR *******
-        public async Task<List<Evento>> GetCalendarioAsync()
+        public async Task<List<Evento>> GetCalendarioHorarioPeliculasAsync()
         {
             List<HorarioPelicula> horarioPeliculas = await this.GetHorarioPeliculasAsync();
             var eventos = new List<Evento>();
             foreach (HorarioPelicula horarioPelicula in horarioPeliculas)
             {
-                new Evento
+                Pelicula pelicula = await this.FindPeliculaAsync(horarioPelicula.IdPelicula);
+                DateTime fechaFin = horarioPelicula.HoraFuncion.AddMinutes(pelicula.DuracionMinutos);
+                eventos.Add(new Evento
                 {
                     Id = horarioPelicula.IdHorario,
-                    Titulo = horarioPelicula.IdPelicula.ToString(),
+                    Titulo = pelicula.Titulo,
                     FechaInicio = horarioPelicula.HoraFuncion,
-                    FechaFin = horarioPelicula.HoraFuncion,
-                    //INCLUIR LA DESCRIPCION DE LA PELICULA
-                    //SUMA EL NUMERO DE MINUTOS DE LA PELICULA
-                };
+                    FechaFin = fechaFin,
+                    Descripcion = pelicula.Sinopsis
+                });
             }
             return eventos;
         }

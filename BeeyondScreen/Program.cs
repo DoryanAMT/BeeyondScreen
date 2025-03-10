@@ -15,6 +15,7 @@ string connectionString =
 builder.Services.AddTransient<RepositoryPelicula>();
 builder.Services.AddTransient<RepositoryHorarioPelicula>();
 builder.Services.AddTransient<RepositoryUsuario>();
+builder.Services.AddTransient<RepositoryBoletos>();
 builder.Services.AddDbContext<CineContext>
     (options => options.UseSqlServer(connectionString));
 

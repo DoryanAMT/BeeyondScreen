@@ -259,9 +259,9 @@ DEALLOCATE CURSOR_SALAS;
 -- Insertar Versiones
 -- ====================================
 
-INSERT INTO VERSION (VERSION_ID, IDIOMA, FORMATO)
-VALUES (1, 'Español', '2D'),
-       (2, 'Inglés', '3D');
+INSERT INTO VERSION (VERSION_ID, IDIOMA)
+VALUES (1, 'Español'),
+       (2, 'Inglés');
 
 -- ====================================
 -- Insertar peliculas

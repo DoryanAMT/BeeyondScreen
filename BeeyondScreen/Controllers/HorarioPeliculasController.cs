@@ -28,6 +28,8 @@ namespace BeeyondScreen.Controllers
             ViewData["COMBOPELICULAS"] = await this.repo.GetComboPeliculasAsync();
             ViewData["COMBOSALAS"] = await this.repo.GetComboSalasAsync(idCine);
             ViewData["COMBOVERSIONES"] = await this.repo.GetComboVersionesAsync();
+            List<Evento> eventos = await this.repo.GetCalendarioHorarioPeliculasAsync();
+            ViewData["CALENDARIOHORARIOPELICULAS"] = eventos;
             return View();
         }
         [HttpPost]
@@ -36,7 +38,7 @@ namespace BeeyondScreen.Controllers
         {
             //  HAY QUE IMPLEMENTAR ID CINE EN SESSION
             
-            int ultimoId = await this.repo.GetUltimoIdHorarioPelicula();
+            int ultimoId = await this.repo.GetUltimoIdHorarioPeliculaAsync();
             await this.repo.InserHorarioPeliculaAsync(ultimoId, horarioPelicula.IdPelicula,
                 horarioPelicula.IdSala, horarioPelicula.IdVersion, horarioPelicula.HoraFuncion,
                 horarioPelicula.AsientosDisponibles);
