@@ -31,6 +31,7 @@ namespace BeeyondScreen.Repositories
             (int idBoleto, int idUsuario, int idAsiento,
             DateTime fechaCompra, string estado)
         {
+            fechaCompra = DateTime.Now;
             Boleto boleto = new Boleto();
             boleto.IdBoleto = idBoleto;
             boleto.IdUsuario = idUsuario;

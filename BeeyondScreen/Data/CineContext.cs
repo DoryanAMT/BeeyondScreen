@@ -1,5 +1,6 @@
 ﻿using BeeyondScreen.Models;
 using Microsoft.EntityFrameworkCore;
+using MvcBeeyondScreen.Models;
 
 namespace BeeyondScreen.Data
 {
@@ -13,5 +14,6 @@ namespace BeeyondScreen.Data
         public DbSet<Sala> Salas { get; set; }
         public DbSet<Models.Version> Versions { get; set; }
         public DbSet<Boleto> Boletos { get; set; }
+        public DbSet<Asiento> Asientos { get; set; }
     }
 }

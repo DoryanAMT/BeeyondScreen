@@ -1,0 +1,333 @@
+﻿@model List<MvcBeeyondScreen.Models.Asiento>
+@{
+    ViewData["Title"] = "Selección de Asientos";
+}
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-dark text-white">
+                    <h2 class="mb-0"><i class="fas fa-couch me-2"></i>Selección de Asientos</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="seat-legend d-flex justify-content-center flex-wrap">
+                                <div class="d-flex align-items-center me-4 mb-2">
+                                    <div class="seat-example available me-2"></div>
+                                    <span>Disponible</span>
+                                </div>
+                                <div class="d-flex align-items-center me-4 mb-2">
+                                    <div class="seat-example selected me-2"></div>
+                                    <span>Seleccionado</span>
+                                </div>
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="seat-example occupied me-2"></div>
+                                    <span>Ocupado</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="screen-container text-center mb-5">
+                        <div class="screen mb-4">PANTALLA</div>
+                    </div>
+
+                    <div class="seats-container">
+                        @{
+                            var filas = new[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L" };
+                        }
+
+                        @foreach (var fila in filas)
+                        {
+                            <div class="row seat-row mb-2">
+                                <div class="col-1 text-center align-self-center fila-label">
+                                    <strong>@fila</strong>
+                                </div>
+                                <div class="col-10">
+                                    <div class="d-flex justify-content-center">
+                                        @for (int asiento = 1; asiento <= 12; asiento++)
+                                        {
+                                            var asientoActual = Model?.FirstOrDefault(a => a.Fila == fila && a.Numero == asiento.ToString());
+                                            var disponible = asientoActual == null || asientoActual.Disponible == true;
+                                            var asientoId = $"{fila}{asiento}";
+                                            var asientoClass = disponible ? "seat available" : "seat occupied";
+
+                                            <div class="seat-wrapper mx-1">
+                                                <div class="@asientoClass" id="@asientoId" data-fila="@fila" data-numero="@asiento" data-disponible="@(disponible ? "S" : "N")">
+                                                    <span class="seat-number">@asiento</span>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-1 text-center align-self-center fila-label">
+                                    <strong>@fila</strong>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5 class="mb-3">Asientos seleccionados:</h5>
+                                            <div id="selected-seats" class="mb-3">
+                                                <span class="text-muted">No has seleccionado asientos</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="d-flex flex-column h-100 justify-content-between">
+                                                <div>
+                                                    <h5 class="mb-3">Resumen:</h5>
+                                                    <div class="d-flex justify-content-between mb-2">
+                                                        <span>Precio por asiento:</span>
+                                                        <span>$7.99</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between mb-2">
+                                                        <span>Asientos seleccionados:</span>
+                                                        <span id="seats-count">0</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between font-weight-bold">
+                                                        <strong>Total:</strong>
+                                                        <strong id="total-price">$0.00</strong>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-3">
+                                                    <form id="asientos-form" method="post" asp-controller="Boletos" asp-action="Create">
+                                                        <input type="hidden" id="asientos-seleccionados" name="asientosSeleccionados" value="" />
+                                                        <button type="submit" class="btn btn-danger w-100" id="btn-confirmar" disabled>
+                                                            <i class="fas fa-shopping-cart me-2"></i>Confirmar selección
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        /* Estilos para la sala de cine */
+        .screen-container {
+            perspective: 1000px;
+        }
+
+        .screen {
+            height: 70px;
+            background-color: #fff;
+            width: 100%;
+            margin: 0 auto;
+            transform: rotateX(-30deg);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.7);
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .seat-wrapper {
+            perspective: 1000px;
+            width: 30px;
+            height: 25px;
+            margin-bottom: 8px;
+        }
+
+        .seat {
+            width: 100%;
+            height: 100%;
+            border-radius: 5px 5px 0 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 0.7rem;
+            position: relative;
+            transition: all 0.3s ease;
+            background-color: #444;
+        }
+
+            .seat.available {
+                background-color: #444;
+            }
+
+                .seat.available:hover {
+                    background-color: #555;
+                    transform: scale(1.1);
+                }
+
+            .seat.selected {
+                background-color: var(--primary);
+                transform: scale(1.1);
+            }
+
+            .seat.occupied {
+                background-color: #888;
+                cursor: not-allowed;
+            }
+
+        .seat-example {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+
+            .seat-example.available {
+                background-color: #444;
+            }
+
+            .seat-example.selected {
+                background-color: var(--primary);
+            }
+
+            .seat-example.occupied {
+                background-color: #888;
+            }
+
+        .fila-label {
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+
+        /* Estilos responsivos */
+        media (max-width: 767.98px) {
+            .seat-wrapper
+
+        {
+            width: 25px;
+            height: 20px;
+            margin: 0 1px 6px;
+        }
+
+        .seat {
+            font-size: 0.6rem;
+        }
+
+        .fila-label {
+            font-size: 0.9rem;
+        }
+
+        .screen {
+            height: 50px;
+        }
+
+        }
+
+        media (max-width: 575.98px) {
+            .seat-wrapper
+
+        {
+            width: 20px;
+            height: 18px;
+            margin: 0 1px 4px;
+        }
+
+        .seat {
+            font-size: 0.5rem;
+        }
+
+        .fila-label {
+            font-size: 0.8rem;
+        }
+
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            const precio = 7.99;
+            const selectedSeats = [];
+
+            // Función para actualizar la interfaz de usuario
+            function updateUI() {
+                const count = selectedSeats.length;
+                const total = (count * precio).toFixed(2);
+
+                $('#seats-count').text(count);
+                $('#total-price').text('$' + total);
+                $('#asientos-seleccionados').val(selectedSeats.join(','));
+
+                if (count > 0) {
+                    $('#btn-confirmar').prop('disabled', false);
+                    $('#selected-seats').html(selectedSeats.map(seat => `<span class="badge bg-dark me-1 mb-1">${seat}</span>`).join(''));
+                } else {
+                    $('#btn-confirmar').prop('disabled', true);
+                    $('#selected-seats').html('<span class="text-muted">No has seleccionado asientos</span>');
+                }
+            }
+
+            // Función para verificar si los asientos son contiguos
+            function areSeatsContiguous(seats) {
+                if (seats.length <= 1) return true;
+
+                // Agrupamos por fila
+                const seatsByRow = {};
+                seats.forEach(seat => {
+                    const row = seat.charAt(0);
+                    if (!seatsByRow[row]) seatsByRow[row] = [];
+                    seatsByRow[row].push(parseInt(seat.substring(1)));
+                });
+
+                // Verificamos cada fila
+                for (const row in seatsByRow) {
+                    const numbers = seatsByRow[row].sort((a, b) => a - b);
+
+                    // Verificamos si son consecutivos
+                    for (let i = 1; i < numbers.length; i++) {
+                        if (numbers[i] !== numbers[i-1] + 1) {
+                            return false;
+                        }
+                    }
+                }
+
+                return true;
+            }
+
+            // Manejador de clicks en asientos
+            $('.seat.available').on('click', function() {
+                const seatId = $(this).attr('id');
+                const index = selectedSeats.indexOf(seatId);
+
+                if (index === -1) {
+                    // Añadir asiento
+                    selectedSeats.push(seatId);
+                    $(this).addClass('selected');
+
+                    // Verificar si son contiguos
+                    if (!areSeatsContiguous(selectedSeats)) {
+                        alert('Solo puedes seleccionar asientos contiguos en la misma fila.');
+                        selectedSeats.pop();
+                        $(this).removeClass('selected');
+                    }
+                } else {
+                    // Quitar asiento
+                    selectedSeats.splice(index, 1);
+                    $(this).removeClass('selected');
+                }
+
+                updateUI();
+            });
+
+            // Inicializar UI
+            updateUI();
+        });
+    </script>
+}

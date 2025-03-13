@@ -1,0 +1,74 @@
+﻿@model IEnumerable<MvcBeeyondScreen.Models.Asiento>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdAsiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdSala)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Numero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fila)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Disponible)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdAsiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdSala)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Numero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fila)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Disponible)
+            </td>
+            <td>
+                    <a class="btn btn-primary"
+                       asp-controller="Asientos"
+                       asp-action="Details"
+                       asp-route-idBoleto="@item.IdAsiento">
+                        Detalle
+                    </a>
+                    <a class="btn btn-warning"
+                       asp-controller="Asientos"
+                       asp-action="Update"
+                       asp-route-idBoleto="@item.IdAsiento">
+                        Update
+                    </a>
+                    <a class="btn btn-danger"
+                       asp-controller="Asientos"
+                       asp-action="Delete"
+                       asp-route-idBoleto="@item.IdAsiento">
+                        Delete
+                    </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

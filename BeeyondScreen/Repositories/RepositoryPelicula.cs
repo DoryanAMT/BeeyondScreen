@@ -20,7 +20,11 @@ namespace BeeyondScreen.Repositories
             var detailsPelicula = await this.context.Peliculas
                 .Where(x => x.IdPelicula == idPelicula)
                 .FirstOrDefaultAsync();
-            //var HorarioPelicula = await this.context.HorarioPeliculas
+            var horarioPelicula = await this.context.HorarioPeliculas
+                .Where(x => x.IdPelicula == idPelicula)
+                .ToListAsync();
+            model.Pelicula = detailsPelicula;
+            model.HorarioPelicula = horarioPelicula;
             return model;
 
         }

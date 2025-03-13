@@ -1,6 +1,7 @@
 ﻿using BeeyondScreen.Models;
 using BeeyondScreen.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using MvcBeeyondScreen.Models;
 using System.ComponentModel;
 
 namespace BeeyondScreen.Controllers
@@ -21,8 +22,8 @@ namespace BeeyondScreen.Controllers
         public async Task<IActionResult> Details
             (int idPelicula)
         {
-            Pelicula pelicula = await this.repo.FindPeliculaAsync(idPelicula);
-            return View(pelicula);
+            ModelDetailsPelicula model = await this.repo.GetDetailsPeliculaAsync(idPelicula);
+            return View(model);
         }
         public IActionResult Create()
         {
