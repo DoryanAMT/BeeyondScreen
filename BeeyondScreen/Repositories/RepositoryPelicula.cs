@@ -38,6 +38,7 @@ namespace BeeyondScreen.Repositories
             (int idPelicula)
         {
             var consulta = from datos in this.context.Peliculas
+                           .Where(x => x.IdPelicula == idPelicula)
                            select datos;
             return await consulta.FirstOrDefaultAsync();
         }

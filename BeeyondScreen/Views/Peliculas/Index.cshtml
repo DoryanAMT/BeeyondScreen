@@ -36,8 +36,11 @@
                                 <a href="javascript:void(0)" class="btn btn-light btn-sm trailer-btn" data-id="@pelicula.IdPelicula">
                                     <i class="fas fa-play me-2"></i>Ver trailer
                                 </a>
-                                <a asp-action="Details" asp-route-id="@pelicula.IdPelicula" class="btn btn-danger btn-sm">
-                                    <i class="fas fa-info-circle me-2"></i>Detalles
+                                <a asp-action="Details"
+                                   asp-route-idPelicula="@pelicula.IdPelicula"
+                                   class="btn btn-danger btn-sm">
+                                    <i class="fas fa-info-circle me-2"></i>
+                                    Detalles
                                 </a>
                             </div>
                         </div>

@@ -165,7 +165,6 @@ CREATE TABLE USUARIO (
 CREATE TABLE VERSION (
     VERSION_ID INT PRIMARY KEY,
     IDIOMA NVARCHAR(50) NOT NULL,
-    FORMATO NVARCHAR(50) NOT NULL
 );
 
 -- Tabla de Horarios de Películas
@@ -269,11 +268,21 @@ VALUES (1, 'Español'),
 SET DATEFORMAT dmy;
 INSERT INTO PELICULA (PELICULA_ID, SINOPSIS, FECHA_LANZAMIENTO, DURACION_MINUTOS, TITULO_ETIQUETA, TITULO, IMG_FONDO, IMG_POSTER)
 VALUES
-(950396, 'Dos agentes de élite son secretamente asignados a torres de vigilancia en los lados opuestos de un vasto desfiladero, para proteger al mundo de un misterioso mal que acecha en su interior. Se unen en la distancia, pero han de mantenerse alerta para defenderse del enemigo invisible. Cuando se les revela una amenaza fatal para la humanidad, deben trabajar juntos y poner a prueba su fuerza física y mental para mantener el secreto del desfiladero antes de que sea demasiado tarde.', '2025-02-13',127, 'Nadie entra. Nada sale.', 'El abismo secreto', '', ''),
-(762509,'Rafiki debe transmitir la leyenda de Mufasa a la joven cachorro de león Kiara, hija de Simba y Nala, y con Timón y Pumba prestando su estilo característico. Mufasa, un cachorro huérfano, perdido y solo, conoce a un simpático león llamado Taka, heredero de un linaje real. Este encuentro casual pone en marcha un viaje de un extraordinario grupo de inadaptados que buscan su destino.','2024-12-18', 118,'','Mufasa: El rey león','',''),
-(1126166,'En este claustrofóbico thriller, un piloto (Mark Wahlberg) transporta en su avioneta a una teniente general (Michelle Dockery) que custodia a un testigo (Topher Grace) que va a testificar en un juicio contra la mafia. A medida que atraviesan las montañas de Alaska, las tensiones se disparan, ya que no todo el mundo a bordo es quien parece ser. Y a 3.000 metros de altura no hay escapatoria posible.','2025-01-22',91,'','Amenaza en el aire','',''),
-(939243,'Sonic, Knuckles y Tails se reúnen para enfrentarse a un nuevo y poderoso adversario, Shadow, un misterioso villano cuyos poderes no se parecen a nada de lo que nuestros héroes han conocido hasta ahora. Con sus facultades superadas en todos los sentidos, el Equipo Sonic tendrá que establecer una insólita alianza con la esperanza de detener a Shadow y proteger el planeta.','2024-12-19',110,'','Sonic 3: La película','',''),
-(1241982,'Tras recibir una inesperada llamada de sus antepasados, Vaiana debe viajar a los lejanos mares de Oceanía y adentrarse en peligrosas aguas perdidas para vivir una aventura sin precedentes.','2024-11-21',99,'','Vaiana 2','','');
+(950396, 'Dos agentes de élite son secretamente asignados a torres de vigilancia en los lados opuestos de un vasto desfiladero, para proteger al mundo de un misterioso mal que acecha en su interior. Se unen en la distancia, pero han de mantenerse alerta para defenderse del enemigo invisible. Cuando se les revela una amenaza fatal para la humanidad, deben trabajar juntos y poner a prueba su fuerza física y mental para mantener el secreto del desfiladero antes de que sea demasiado tarde.', '2025-02-13',127, 'Nadie entra. Nada sale.', 'El abismo secreto', 
+'https://image.tmdb.org/t/p/w533_and_h300_bestv2/9nhjGaFLKtddDPtPaX5EmKqsWdH.jpg',
+'https://image.tmdb.org/t/p/w300_and_h450_bestv2/3s0jkMh0YUhIeIeioH3kt2X4st4.jpg'),
+(762509,'Rafiki debe transmitir la leyenda de Mufasa a la joven cachorro de león Kiara, hija de Simba y Nala, y con Timón y Pumba prestando su estilo característico. Mufasa, un cachorro huérfano, perdido y solo, conoce a un simpático león llamado Taka, heredero de un linaje real. Este encuentro casual pone en marcha un viaje de un extraordinario grupo de inadaptados que buscan su destino.','2024-12-18', 118,'','Mufasa: El rey león',
+'https://image.tmdb.org/t/p/w533_and_h300_bestv2/jIgM7YNVft0YGeXsqrh3oG5TWLx.jpg',
+'https://image.tmdb.org/t/p/w300_and_h450_bestv2/dmw74cWIEKaEgl5Dv3kUTcCob6D.jpg'),
+(1126166,'En este claustrofóbico thriller, un piloto (Mark Wahlberg) transporta en su avioneta a una teniente general (Michelle Dockery) que custodia a un testigo (Topher Grace) que va a testificar en un juicio contra la mafia. A medida que atraviesan las montañas de Alaska, las tensiones se disparan, ya que no todo el mundo a bordo es quien parece ser. Y a 3.000 metros de altura no hay escapatoria posible.','2025-01-22',91,'','Amenaza en el aire',
+'https://image.tmdb.org/t/p/w533_and_h300_bestv2/ek8CJRZchT9YIB4p7ktEjPXuCIi.jpg',
+'https://image.tmdb.org/t/p/w300_and_h450_bestv2/8T6nkYb4W8BIeafmFffyfsRciTL.jpg'),
+(939243,'Sonic, Knuckles y Tails se reúnen para enfrentarse a un nuevo y poderoso adversario, Shadow, un misterioso villano cuyos poderes no se parecen a nada de lo que nuestros héroes han conocido hasta ahora. Con sus facultades superadas en todos los sentidos, el Equipo Sonic tendrá que establecer una insólita alianza con la esperanza de detener a Shadow y proteger el planeta.','2024-12-19',110,'','Sonic 3: La película',
+'https://image.tmdb.org/t/p/w533_and_h300_bestv2/ggDVF2DhqIQjJI0zUqsWMS2WTcF.jpg',
+'https://image.tmdb.org/t/p/w300_and_h450_bestv2/3aDWCRXLYOCuxjrjiPfLd79tcI6.jpg'),
+(1241982,'Tras recibir una inesperada llamada de sus antepasados, Vaiana debe viajar a los lejanos mares de Oceanía y adentrarse en peligrosas aguas perdidas para vivir una aventura sin precedentes.','2024-11-21',99,'','Vaiana 2',
+'https://image.tmdb.org/t/p/w533_and_h300_bestv2/7rgHEYy23gAmxTyxivGXBTBikA1.jpg',
+'https://image.tmdb.org/t/p/w300_and_h450_bestv2/b1WsCRfomw7tRi12NuseKsAJxYK.jpg');
 
 -- ====================================
 -- Insertar companias

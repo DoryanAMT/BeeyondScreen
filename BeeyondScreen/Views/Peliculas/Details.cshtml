@@ -1,13 +1,62 @@
 ﻿@model Pelicula
 
-<h1>Detalles pelicula</h1>
+@{
+    ViewData["Title"] = Model.Titulo;
+}
 
-<ul class="list-group">
-    <li class="list-group-item">@Model.Titulo</li>
-    <li class="list-group-item">@Model.FechaLanzamiento</li>
-    <li class="list-group-item">@Model.DuracionMinutos</li>
-    <li class="list-group-item">@Model.TituloEtiqueta</li>
-    <li class="list-group-item">@Model.Sinopsis</li>
-    <li class="list-group-item">@Model.ImgFondo</li>
-    <li class="list-group-item">@Model.ImgPoster</li>
-</ul>
+<div class="container-fluid p-0">
+    <div class="movie-detail-header position-relative">
+        <!-- Imagen de fondo con overlay -->
+        <div class="movie-backdrop" style="background-image: url('@Model.ImgFondo')">
+            <div class="backdrop-overlay"></div>
+        </div>
+
+        <div class="container py-5 position-relative">
+            <div class="row">
+                <!-- Póster de la película -->
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="movie-poster-container">
+                        <img src="@Model.ImgPoster" alt="@Model.Titulo" class="img-fluid rounded shadow movie-poster">
+                    </div>
+                </div>
+
+                <!-- Detalles de la película -->
+                <div class="col-md-8">
+                    <div class="movie-info-content text-white">
+                        <h1 class="display-4 fw-bold mb-2">@Model.Titulo</h1>
+                        <p class="lead fst-italic mb-3">@Model.TituloEtiqueta</p>
+
+                        <div class="movie-meta d-flex align-items-center mb-4">
+                            <span class="me-3">
+                                <i class="bi bi-calendar3"></i> @Model.FechaLanzamiento.ToString("dd MMMM yyyy")
+                            </span>
+                            <span class="me-3">
+                                <i class="bi bi-clock"></i> @Model.DuracionMinutos minutos
+                            </span>
+                        </div>
+
+                        <div class="mb-4">
+                            <h3 class="h4 mb-3">Sinopsis</h3>
+                            <p class="movie-synopsis">@Model.Sinopsis</p>
+                        </div>
+
+                        <div class="mt-4">
+                            <a href="/Tickets/Comprar/@Model.IdPelicula" class="btn btn-danger btn-lg">
+                                <i class="bi bi-ticket-perforated me-2"></i>Comprar Tickets
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/peliculas/detailsScript.js"></script>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/peliculas/detailsStyle.css" />
+}
