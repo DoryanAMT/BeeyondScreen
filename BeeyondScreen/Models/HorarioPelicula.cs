@@ -35,5 +35,7 @@ namespace BeeyondScreen.Models
         public DateTime HoraFuncion { get; set; }
         [Column("ASIENTOS_DISPONIBLES")]
         public int AsientosDisponibles { get; set; }
+        [Column("ESTADO")]
+        public char Estado { get; set; }
     }
 }

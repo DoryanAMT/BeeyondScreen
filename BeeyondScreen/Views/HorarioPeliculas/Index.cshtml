@@ -30,6 +30,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.AsientosDisponibles)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -55,6 +58,10 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.AsientosDisponibles)
                 </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+
                 <td>
                     <a asp-controller="HorarioPeliculas"
                        asp-action="Details"

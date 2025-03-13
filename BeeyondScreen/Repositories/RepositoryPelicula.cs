@@ -2,6 +2,7 @@
 using BeeyondScreen.DTOs;
 using BeeyondScreen.Models;
 using Microsoft.EntityFrameworkCore;
+using MvcBeeyondScreen.Models;
 
 namespace BeeyondScreen.Repositories
 {
@@ -12,6 +13,18 @@ namespace BeeyondScreen.Repositories
         {
             this.context = context;
         }
+        public async Task<ModelDetailsPelicula> GetDetailsPeliculaAsync
+            (int idPelicula)
+        {
+            ModelDetailsPelicula model = new ModelDetailsPelicula();
+            var detailsPelicula = await this.context.Peliculas
+                .Where(x => x.IdPelicula == idPelicula)
+                .FirstOrDefaultAsync();
+            //var HorarioPelicula = await this.context.HorarioPeliculas
+            return model;
+
+        }
+
         //  RECUPERAR TODAS LAS PELICULAS
         public async Task<List<Pelicula>> GetPeliculasAsync()
         {

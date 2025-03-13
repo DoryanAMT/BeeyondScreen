@@ -41,7 +41,7 @@ namespace BeeyondScreen.Controllers
             int ultimoId = await this.repo.GetUltimoIdHorarioPeliculaAsync();
             await this.repo.InserHorarioPeliculaAsync(ultimoId, horarioPelicula.IdPelicula,
                 horarioPelicula.IdSala, horarioPelicula.IdVersion, horarioPelicula.HoraFuncion,
-                horarioPelicula.AsientosDisponibles);
+                horarioPelicula.AsientosDisponibles, horarioPelicula.Estado);
             return RedirectToAction("Index");
         }
         public async Task<IActionResult> Edit
@@ -56,7 +56,7 @@ namespace BeeyondScreen.Controllers
         {
             await this.repo.UpdateHorarioPeliculaAsync(horarioPelicula.IdHorario, horarioPelicula.IdPelicula,
                 horarioPelicula.IdSala, horarioPelicula.IdVersion, horarioPelicula.HoraFuncion,
-                horarioPelicula.AsientosDisponibles);
+                horarioPelicula.AsientosDisponibles, horarioPelicula.Estado);
             return RedirectToAction("Index");
         }
         public async Task<IActionResult> Delete

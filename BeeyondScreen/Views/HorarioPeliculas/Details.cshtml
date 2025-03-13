@@ -11,40 +11,46 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdHorario)
+            ID HORARIO
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdHorario)
+            @Model.IdHorario
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdPelicula)
+            ID PELICULA
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdPelicula)
+            @Model.IdPelicula
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdSala)
+            ID SALA
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdSala)
+            @Model.IdSala
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdVersion)
+            ID VERSION
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdVersion)
+            @Model.IdVersion
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HoraFuncion)
+            HORA FUNCION
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HoraFuncion)
+            @Model.HoraFuncion
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AsientosDisponibles)
+            ASIENTOS DISPONIBLES
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AsientosDisponibles)
+            @Model.AsientosDisponibles
+        </dd>
+        <dt class="col-sm-2">
+            ESTADO
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Estado
         </dd>
     </dl>
 </div>

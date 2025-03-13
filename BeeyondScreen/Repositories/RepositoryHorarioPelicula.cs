@@ -34,7 +34,8 @@ namespace BeeyondScreen.Repositories
         }
         public async Task InserHorarioPeliculaAsync
             (int idHorarioPelicula, int idPelicula, int idSala,
-            int idVersion, DateTime horaFuncion, int asientosDisponibles)
+            int idVersion, DateTime horaFuncion, int asientosDisponibles,
+            char estado)
         {
             HorarioPelicula horarioPelicula = new HorarioPelicula();
             horarioPelicula.IdHorario = idHorarioPelicula;
@@ -43,12 +44,14 @@ namespace BeeyondScreen.Repositories
             horarioPelicula.IdVersion = idVersion;
             horarioPelicula.HoraFuncion = horaFuncion;
             horarioPelicula.AsientosDisponibles = asientosDisponibles;
+            horarioPelicula.Estado = estado;
             await this.context.HorarioPeliculas.AddAsync(horarioPelicula);
             await this.context.SaveChangesAsync();
         }
         public async Task UpdateHorarioPeliculaAsync
             (int idHorarioPelicula, int idPelicula, int idSala,
-            int idVersion, DateTime horaFuncion, int asientosDisponibles)
+            int idVersion, DateTime horaFuncion, int asientosDisponibles,
+            char estado)
         {
             HorarioPelicula horarioPelicula = await this.FindHorarioPeliculaAsync(idHorarioPelicula);
             horarioPelicula.IdHorario = idHorarioPelicula;
@@ -57,6 +60,7 @@ namespace BeeyondScreen.Repositories
             horarioPelicula.IdVersion = idVersion;
             horarioPelicula.HoraFuncion = horaFuncion;
             horarioPelicula.AsientosDisponibles = asientosDisponibles;
+            horarioPelicula.Estado = estado;
             await this.context.SaveChangesAsync();
         }
         public async Task DeleteHorarioPeliculaAsync
