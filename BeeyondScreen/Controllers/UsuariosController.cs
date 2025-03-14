@@ -175,7 +175,7 @@ namespace BeeyondScreen.Controllers
             ()
         {
             HttpContext.Session.Remove("USUARIOCLIENTE");
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Peliculas");
         }
     }
 }
