@@ -42,7 +42,7 @@ namespace MvcBeeyondScreen.Controllers
                 asiento.Fila,
                 asiento.Disponible
                 );
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Peliculas");
         }
         public async Task<IActionResult> Update
             (int idAsiento)
@@ -103,7 +103,7 @@ namespace MvcBeeyondScreen.Controllers
                 "Confirmado"
                 );
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Peliculas");
         }
     }
 }
