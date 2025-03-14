@@ -7,17 +7,6 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BeeyondScreen.Models
 {
-    #region
- //   CREATE TABLE USUARIO(
- //   USUARIO_ID INT PRIMARY KEY,
- //   NOMBRE NVARCHAR(100) NOT NULL,
- //   EMAIL NVARCHAR(150) UNIQUE NOT NULL,
-	//IMAGEN NVARCHAR(150),
-	//SALT NVARCHAR(50),
- //   PASS VARBINARY(MAX) NOT NULL,
- //   FECHA_CREACION DATETIME DEFAULT GETDATE()
- //   );
-    #endregion
     [Table("USUARIO")]
     public class Usuario
     {

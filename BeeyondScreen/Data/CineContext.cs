@@ -15,5 +15,6 @@ namespace BeeyondScreen.Data
         public DbSet<Models.Version> Versions { get; set; }
         public DbSet<Boleto> Boletos { get; set; }
         public DbSet<Asiento> Asientos { get; set; }
+        public DbSet<ViewFacturaBoleto> ViewFacturaBoletos { get; set; }
     }
 }

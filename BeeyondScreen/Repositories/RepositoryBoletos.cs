@@ -2,7 +2,6 @@
 using BeeyondScreen.DTOs;
 using BeeyondScreen.Models;
 using Microsoft.EntityFrameworkCore;
-using NuGet.Protocol;
 
 namespace BeeyondScreen.Repositories
 {
@@ -64,7 +63,7 @@ namespace BeeyondScreen.Repositories
         }
         
         //  GET ULTIMO ID BOLETO
-        public async Task<int> GetUltimoIdBoletoAsync()
+        public async Task<int> GetLastIdBoletoAsync()
         {
             var consulta = this.context.Boletos.Any() ?
                 this.context.Boletos.Max(x => x.IdBoleto) + 1 :

@@ -3,6 +3,7 @@ using BeeyondScreen.Helpers;
 using BeeyondScreen.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using MvcBeeyondScreen.Models;
 
 namespace BeeyondScreen.Repositories
 {
@@ -13,16 +14,30 @@ namespace BeeyondScreen.Repositories
         {
             this.context = context;
         }
-        private async Task<int> GetMaxIdUser()
+
+        public async Task<List<ViewFacturaBoleto>> GetFacturasBoletoUserAsync
+            (int idUsuario)
         {
-            if (this.context.Usuarios.Count() == 0)
+            return await this.context.ViewFacturaBoletos
+                .Where(x => x.IdUsuario == idUsuario)
+                .ToListAsync();
+        }
+
+        public async Task<ViewFacturaBoleto> GetFacturaBoletoUserAsync
+            (int idBoletoUser)
+        {
+            return await this.context.ViewFacturaBoletos
+                .Where(x => x.Id == idBoletoUser)
+                .FirstOrDefaultAsync();
+        }
+        public async Task<int> GetLastIdUserAsync()
+        {
             {
-                return 1;
-            }
-            else
-            {
-                return await this.context.Usuarios.MaxAsync
-                    (x => x.IdUsuario) + 1;
+                var consulta = this.context.Usuarios.Any() ?
+                    this.context.Usuarios.Max(x => x.IdUsuario) + 1 :
+                    1;
+                int ultimoId = int.Parse(consulta.ToString());
+                return ultimoId;
             }
         }
         public async Task<List<Usuario>> GetUsuariosAsync()
@@ -39,31 +54,6 @@ namespace BeeyondScreen.Repositories
                            select datos;
             return await consulta.FirstOrDefaultAsync();
         }
-        //public async Task InsertUsuario
-        //    (int idUsuario, string nombre, string email, 
-        //    string contrasenaHash, DateTime fechaCreacion)
-        //{
-        //    Usuario usuario = new Usuario();
-        //    usuario.IdUsuario = idUsuario;
-        //    usuario.Nombre = nombre;
-        //    usuario.Email = email;
-        //    usuario.Pass = contrasenaHash;
-        //    usuario.FechaCreacion = fechaCreacion;
-        //    await this.context.AddAsync(usuario);
-        //    await this.context.SaveChangesAsync();
-        //}
-        //public async Task UpdateUsuario
-        //    (int idUsuario, string nombre,string correo, 
-        //    string contrasenaHash, DateTime fechaCreacion)
-        //{
-        //    Usuario usuario = await this.FindUsuarioAsync(idUsuario) ;
-        //    usuario.UsuarioId = idUsuario;
-        //    usuario.Nombre = nombre;
-        //    usuario.Correo = correo;
-        //    usuario.ContrasenaHash = contrasenaHash;
-        //    usuario.FechaCreacion = fechaCreacion;
-        //    await this.context.SaveChangesAsync();
-        //}
         //public async Task DeleteUsuario
         //    (int idUsuario)
         //{
@@ -71,12 +61,44 @@ namespace BeeyondScreen.Repositories
         //    this.context.Remove(usuario);
         //    await this.context.SaveChangesAsync();
         //}
+        // Actualizar perfil sin cambiar contraseña
+        public async Task UpdateUsuarioProfileAsync
+            (int idUsuario, string nombre, string email, 
+            string imagen)
+        {
+            Usuario usuario = await this.FindUsuarioAsync(idUsuario);
+            if (usuario != null)
+            {
+                usuario.Nombre = nombre;
+                usuario.Email = email;
+                usuario.Imagen = imagen;
+                await this.context.SaveChangesAsync();
+            }
+        }
+
+        // Actualizar perfil con cambio de contraseña
+        public async Task UpdateUsuarioAsync
+            (int idUsuario, string nombre, string email, 
+            string imagen, string password)
+        {
+            Usuario usuario = await this.FindUsuarioAsync(idUsuario);
+            if (usuario != null)
+            {
+                usuario.Nombre = nombre;
+                usuario.Email = email;
+                usuario.Imagen = imagen;
+                // Actualizar la contraseña
+                usuario.Pass = HelperCriptography.EncryptPassword(password, usuario.Salt);
+                await this.context.SaveChangesAsync();
+            }
+        }
+
         public async Task RegisterUserAsync
             (string nombre, string email, string password,
             string imagen)
         {
             Usuario usuario = new Usuario();
-            usuario.IdUsuario = await this.GetMaxIdUser();
+            usuario.IdUsuario = await this.GetLastIdUserAsync();
             usuario.Nombre = nombre;
             usuario.Email = email;
             usuario.Imagen = imagen;
@@ -105,6 +127,7 @@ namespace BeeyondScreen.Repositories
                 bool response = HelperCriptography.CompararArrays(temp, passBytes);
                 if (response == true)
                 {
+
                     return usuario;
                 }
                 else

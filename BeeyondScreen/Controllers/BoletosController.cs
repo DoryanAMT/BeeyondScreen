@@ -31,7 +31,7 @@ namespace BeeyondScreen.Controllers
             (Boleto boleto)
         {
             //  EL HORARIO LO SELECCIONARA DESDE UN VISTA DE RESERVA
-            int ultimoId = await this.repo.GetUltimoIdBoletoAsync();
+            int ultimoId = await this.repo.GetLastIdBoletoAsync();
             await this.repo.InsertBoletoAsync(
                 ultimoId,
                 boleto.IdUsuario,
@@ -50,10 +50,8 @@ namespace BeeyondScreen.Controllers
         public async Task<IActionResult> Update
                 (Boleto boleto)
         {
-            //  EL HORARIO LO SELECCIONARA DESDE UN VISTA DE RESERVA
-            int ultimoId = await this.repo.GetUltimoIdBoletoAsync();
             await this.repo.UpdateBoletoAsync(
-                ultimoId,
+                boleto.IdBoleto,
                 boleto.IdUsuario,
                 boleto.IdAsiento,
                 boleto.FechaCompra,

@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BeeyondScreen.Extensions;
+using BeeyondScreen.Models;
+using Microsoft.AspNetCore.Mvc;
 using MvcBeeyondScreen.Models;
 using MvcBeeyondScreen.Repositories;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MvcBeeyondScreen.Controllers
 {
@@ -22,7 +25,8 @@ namespace MvcBeeyondScreen.Controllers
             Asiento asiento = await this.repo.FindAsientoAsync(idAsiento);
             return View(asiento);
         }
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create
+            ()
         {
             return View();
         }
@@ -32,8 +36,8 @@ namespace MvcBeeyondScreen.Controllers
         {
             await this.repo.InsertAsientoAsync(
                 asiento.IdAsiento,
-                asiento.IdHorario,
                 asiento.IdSala,
+                asiento.IdHorario,
                 asiento.Numero,
                 asiento.Fila,
                 asiento.Disponible
@@ -46,6 +50,7 @@ namespace MvcBeeyondScreen.Controllers
             Asiento asiento = await this.repo.FindAsientoAsync(idAsiento);
             return View(asiento);
         }
+
         [HttpPost]
         public async Task<IActionResult> Update
             (Asiento asiento)
@@ -53,10 +58,51 @@ namespace MvcBeeyondScreen.Controllers
             await this.repo.UpdateAsientoAsync(
                 asiento.IdAsiento,
                 asiento.IdSala,
+                asiento.IdHorario,
                 asiento.Numero,
                 asiento.Fila,
                 asiento.Disponible
                 );
+            return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> Delete
+            (int idAsiento)
+        {
+            await this.repo.DeleteAsientoAsync(idAsiento);
+            return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> AsientosReserva
+            (int idHorario)
+        {
+            ModelAsientosReserva model = await this.repo.ReservaAsientoSalaHorarioId(idHorario);
+            return View(model);
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> AsientosReserva
+            (Asiento asiento)
+        {
+            int idAsiento = await this.repo.GetLastIdAsientoAsync();
+            await this.repo.InsertAsientoAsync(
+                idAsiento,
+                asiento.IdSala,
+                asiento.IdHorario,
+                asiento.Numero,
+                asiento.Fila,
+                asiento.Disponible
+                );
+            // GENERAMOS LOS BOLETOS POR CADA ENTRADA QUE HAYAMOS ESCOGIDO
+            int idUsuario = HttpContext.Session.GetObject<Usuario>("USUARIOCLIENTE").IdUsuario;
+            int idBoleto = await this.repo.GetLastIdBoletoAsync();
+            await this.repo.InsertBoletoAsync(
+                idBoleto,
+                idUsuario,
+                asiento.IdHorario,
+                idAsiento,
+                DateTime.Now,
+                "Confirmado"
+                );
+
             return RedirectToAction("Index");
         }
     }

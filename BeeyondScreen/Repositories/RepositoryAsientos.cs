@@ -41,8 +41,8 @@ namespace MvcBeeyondScreen.Repositories
         }
         
         public async Task UpdateAsientoAsync
-            (int idAsiento, int idSala, string numero,
-            int idHorario, string fila, Boolean disponible)
+            (int idAsiento, int idSala, int idHorario,
+            string numero, string fila, Boolean disponible)
         {
             Asiento asiento = await this.FindAsientoAsync(idAsiento);
             asiento.IdAsiento = idAsiento;
@@ -53,22 +53,55 @@ namespace MvcBeeyondScreen.Repositories
             asiento.Disponible = disponible;
             await this.context.SaveChangesAsync();
         }
+        public async Task DeleteAsientoAsync
+            (int idAsiento)
+        {
+            Asiento asiento = await this.FindAsientoAsync(idAsiento);
+            this.context.Asientos.Remove(asiento);
+            await this.context.SaveChangesAsync();
+        }
 
         //  INSERT DE ASIENTOS SEGUN EL ID DEL HORARIO
-        public async Task ReservaAsientoSalaHorarioId
+        public async Task<ModelAsientosReserva> ReservaAsientoSalaHorarioId
             (int idHorarioPelicula)
         {
+            ModelAsientosReserva model = new ModelAsientosReserva();
             HorarioPelicula horarioPelicula = await this.GetHorarioPeliculaAsync(idHorarioPelicula);
             // la vista me devuelve la informacion que necesito para recuperar los aientos que estan disponibles
-
+            Pelicula pelicula = await this.FindPeliculaAsync(horarioPelicula.IdPelicula);
+            List<Asiento> asientosOcupados = await this.GetAsientosSalaHorarioPeliculaAsync(idHorarioPelicula, horarioPelicula.IdSala);
+            model.HorarioPelicula = horarioPelicula;
+            model.Pelicula = pelicula;
+            model.Asientos = asientosOcupados;
+            //  POR OTRA PERTE NOS ENCARGAMOS DE GENERAR LOS BOLETOS POR CADA ASIENTO
+            return model;
 
         }
 
-        public async Task<List<Asiento>> GetAsientosSalaHorarioPeliculaAsync
-            (int idHorarioPelicula)
+        //  INSERTAR BOLETO
+        public async Task InsertBoletoAsync
+            (int idBoleto, int idUsuario, int idHorario,
+            int idAsiento, DateTime fechaCompra, string estado)
         {
-            HorarioPelicula horarioPelicula = await this.GetHorarioPeliculaAsync(idHorarioPelicula);
-            List<Asiento> asientos = await 
+            
+            Boleto boleto = new Boleto();
+            boleto.IdBoleto = idBoleto;
+            boleto.IdUsuario = idUsuario;
+            boleto.IdHorario = idHorario;
+            boleto.IdAsiento = idAsiento;
+            boleto.FechaCompra = fechaCompra;
+            boleto.Estado = estado;
+            await this.context.AddAsync(boleto);
+            await this.context.SaveChangesAsync();
+        }
+
+        public async Task<List<Asiento>> GetAsientosSalaHorarioPeliculaAsync
+            (int idHorarioPelicula, int idSala)
+        {
+            return await this.context.Asientos
+                .Where(x => x.IdHorario == idHorarioPelicula
+                && x.IdSala == idSala)
+                .ToListAsync();
         }
 
         public async Task<HorarioPelicula> GetHorarioPeliculaAsync
@@ -78,6 +111,33 @@ namespace MvcBeeyondScreen.Repositories
                 .Where(x => x.IdHorario == idHorarioPelicula)
                 .FirstOrDefaultAsync();
         }
-
+        public async Task<Pelicula> FindPeliculaAsync
+           (int idPelicula)
+        {
+            var consulta = from datos in this.context.Peliculas
+                           .Where(x => x.IdPelicula == idPelicula)
+                           select datos;
+            return await consulta.FirstOrDefaultAsync();
+        }
+        public async Task<int> GetLastIdAsientoAsync()
+        {
+            {
+                var consulta = this.context.Asientos.Any() ?
+                    this.context.Asientos.Max(x => x.IdAsiento) + 1 :
+                    1;
+                int ultimoId = int.Parse(consulta.ToString());
+                return ultimoId;
+            }
+        }
+        public async Task<int> GetLastIdBoletoAsync()
+        {
+            {
+                var consulta = this.context.Boletos.Any() ?
+                    this.context.Boletos.Max(x => x.IdBoleto) + 1 :
+                    1;
+                int ultimoId = int.Parse(consulta.ToString());
+                return ultimoId;
+            }
+        }
     }
 }

@@ -19,6 +19,9 @@
                 @Html.DisplayNameFor(model => model.IdSala)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.IdHorario)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Numero)
             </th>
             <th>
@@ -40,6 +43,9 @@
                 @Html.DisplayFor(modelItem => item.IdSala)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.IdHorario)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Numero)
             </td>
             <td>
@@ -52,19 +58,19 @@
                     <a class="btn btn-primary"
                        asp-controller="Asientos"
                        asp-action="Details"
-                       asp-route-idBoleto="@item.IdAsiento">
+                       asp-route-IdAsiento="@item.IdAsiento">
                         Detalle
                     </a>
                     <a class="btn btn-warning"
                        asp-controller="Asientos"
                        asp-action="Update"
-                       asp-route-idBoleto="@item.IdAsiento">
+                       asp-route-IdAsiento="@item.IdAsiento">
                         Update
                     </a>
                     <a class="btn btn-danger"
                        asp-controller="Asientos"
                        asp-action="Delete"
-                       asp-route-idBoleto="@item.IdAsiento">
+                       asp-route-IdAsiento="@item.IdAsiento">
                         Delete
                     </a>
             </td>

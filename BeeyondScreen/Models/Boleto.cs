@@ -13,6 +13,8 @@ namespace BeeyondScreen.Models
         public int IdUsuario { get; set; }
         [Column("ASIENTO_ID")]
         public int IdAsiento { get; set; }
+        [Column("HORARIO_ID")]
+        public int IdHorario { get; set; }
         [Column("FECHA_COMPRA")]
         public DateTime FechaCompra { get; set; }
         [Column("ESTADO")]
