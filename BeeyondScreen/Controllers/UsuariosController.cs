@@ -1,17 +1,15 @@
 ﻿using BeeyondScreen.Extensions;
 using BeeyondScreen.Helpers;
 using BeeyondScreen.Models;
-using BeeyondScreen.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using MvcBeeyondScreen.Models;
-using NuGet.Packaging.Signing;
+using BeeyondScreen.Repositories;
 
 namespace BeeyondScreen.Controllers
 {
     public class UsuariosController : Controller
     {
-        private RepositoryUsuario repo;
-        public UsuariosController(RepositoryUsuario repo)
+        private RepositoryCine repo;
+        public UsuariosController(RepositoryCine repo)
         {
             this.repo = repo;
         }

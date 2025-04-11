@@ -1,13 +1,13 @@
 ﻿using BeeyondScreen.Models;
-using BeeyondScreen.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using BeeyondScreen.Repositories;
 
 namespace BeeyondScreen.Controllers
 {
     public class BoletosController : Controller
     {
-        private RepositoryBoletos repo;
-        public BoletosController(RepositoryBoletos repo)
+        private RepositoryCine repo;
+        public BoletosController(RepositoryCine repo)
         {
             this.repo = repo;
         }

@@ -1,6 +1,5 @@
 ﻿using BeeyondScreen.Models;
 using Microsoft.EntityFrameworkCore;
-using MvcBeeyondScreen.Models;
 
 namespace BeeyondScreen.Data
 {

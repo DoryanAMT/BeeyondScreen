@@ -1,16 +1,14 @@
 ﻿using BeeyondScreen.Extensions;
 using BeeyondScreen.Models;
 using Microsoft.AspNetCore.Mvc;
-using MvcBeeyondScreen.Models;
-using MvcBeeyondScreen.Repositories;
-using System.Diagnostics.CodeAnalysis;
+using BeeyondScreen.Repositories;
 
-namespace MvcBeeyondScreen.Controllers
+namespace BeeyondScreen.Controllers
 {
     public class AsientosController : Controller
     {
-        private RepositoryAsientos repo;
-        public AsientosController(RepositoryAsientos repo)
+        private RepositoryCine repo;
+        public AsientosController(RepositoryCine repo)
         {
             this.repo = repo;
         }

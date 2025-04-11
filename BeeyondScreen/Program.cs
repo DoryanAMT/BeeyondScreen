@@ -1,7 +1,6 @@
 using BeeyondScreen.Data;
-using BeeyondScreen.Repositories;
 using Microsoft.EntityFrameworkCore;
-using MvcBeeyondScreen.Repositories;
+using BeeyondScreen.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,11 +12,9 @@ builder.Services.AddSession();
 
 string connectionString =
     builder.Configuration.GetConnectionString("SqlCine");
-builder.Services.AddTransient<RepositoryPelicula>();
-builder.Services.AddTransient<RepositoryHorarioPelicula>();
-builder.Services.AddTransient<RepositoryUsuario>();
-builder.Services.AddTransient<RepositoryBoletos>();
-builder.Services.AddTransient<RepositoryAsientos>();
+
+builder.Services.AddTransient<RepositoryCine>();
+
 builder.Services.AddDbContext<CineContext>
     (options => options.UseSqlServer(connectionString));
 

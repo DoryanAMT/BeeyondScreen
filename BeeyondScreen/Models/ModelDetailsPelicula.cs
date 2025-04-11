@@ -1,6 +1,4 @@
-﻿using BeeyondScreen.Models;
-
-namespace MvcBeeyondScreen.Models
+﻿namespace BeeyondScreen.Models
 {
     public class ModelDetailsPelicula
     {

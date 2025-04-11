@@ -1,13 +1,13 @@
 ﻿using BeeyondScreen.Models;
-using BeeyondScreen.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using BeeyondScreen.Repositories;
 
 namespace BeeyondScreen.Controllers
 {
     public class HorarioPeliculasController : Controller
     {
-        RepositoryHorarioPelicula repo;
-        public HorarioPeliculasController(RepositoryHorarioPelicula repo)
+        private RepositoryCine repo;
+        public HorarioPeliculasController(RepositoryCine repo)
         {
             this.repo = repo;
         }

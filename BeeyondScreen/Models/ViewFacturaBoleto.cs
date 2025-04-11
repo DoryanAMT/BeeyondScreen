@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace MvcBeeyondScreen.Models
+namespace BeeyondScreen.Models
 {
     [Table("V_FACTURA_BOLETO")]
     public class ViewFacturaBoleto
