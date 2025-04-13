@@ -3,6 +3,10 @@ using BeeyondScreen.Helpers;
 using BeeyondScreen.Models;
 using Microsoft.AspNetCore.Mvc;
 using BeeyondScreen.Repositories;
+using BeeyondScreen.Filters;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 namespace BeeyondScreen.Controllers
 {
@@ -24,24 +28,14 @@ namespace BeeyondScreen.Controllers
             Usuario usuario = await this.repo.FindUsuarioAsync(idUsuario);
             return View(usuario);
         }
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
-        //[HttpPost]
-        //public async Task<IActionResult> Create
-        //    (Usuario usuario)
-        //{
-        //    //await this.repo.InsertUsuario(usuario.UsuarioId, usuario.Nombre,
-        //    //    usuario.Correo ,usuario.ContrasenaHash, usuario.FechaCreacion);
-        //    return RedirectToAction("Index");
-        //}
-        public async Task<IActionResult> Perfil
+        
+        [AuthorizeUsers]
+        public IActionResult Perfil
             ()
         {
-            int idUsuario = HttpContext.Session.GetObject<Usuario>("USUARIOCLIENTE").IdUsuario;
-            Usuario usuario = await this.repo.FindUsuarioAsync(idUsuario);
-            return View(usuario);
+            //int idUsuario = HttpContext.Session.GetObject<Usuario>("USUARIOCLIENTE").IdUsuario;
+            //Usuario usuario = await this.repo.FindUsuarioAsync(idUsuario);
+            return View();
         }
         [HttpGet]
         public async Task<IActionResult> Edit(int idUsuario)
@@ -117,12 +111,6 @@ namespace BeeyondScreen.Controllers
                 return View(usuario);
             }
         }
-        //public async Task<IActionResult> Delete
-        //    (int idUsuario)
-        //{
-        //    //await this.repo.DeleteUsuario(idUsuario);
-        //    return RedirectToAction("Index");
-        //}
 
         public IActionResult Register()
         {
@@ -152,7 +140,20 @@ namespace BeeyondScreen.Controllers
             }
             else
             {
-                HttpContext.Session.SetObject("USUARIOCLIENTE", usuario);
+                ClaimsIdentity identity =
+                new ClaimsIdentity(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    ClaimTypes.Name, ClaimTypes.Role);
+                Claim claimName =
+                    new Claim(ClaimTypes.Name, usuario.Nombre);
+                identity.AddClaim(claimName);
+          
+                ClaimsPrincipal userPrincipal =
+                    new ClaimsPrincipal(identity);
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    userPrincipal);
+              
                 return RedirectToAction("Index", "Peliculas");
             }
         }
