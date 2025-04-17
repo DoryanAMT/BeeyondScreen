@@ -18,7 +18,7 @@ namespace BeeyondScreen.Models
         [Column("EMAIL")]
         public string Email { get; set; }
         [Column("IMAGEN")]
-        public string Imagen { get; set; }
+        public string? Imagen { get; set; }
         [Column("SALT")]
         public string Salt { get; set; }
         [Column("PASS")]

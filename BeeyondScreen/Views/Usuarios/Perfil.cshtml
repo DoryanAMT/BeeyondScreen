@@ -1,11 +1,5 @@
-﻿@* @model Usuario *@
+﻿<h1>Perfil</h1>
 
-@{
-    ViewData["Title"] = "Editar Perfil";
-}
-
-<h1>Perfil</h1>
-@* 
 <div class="container my-5 fade-in">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
@@ -17,47 +11,42 @@
                     </a>
                 </div>
 
+                
                 <div class="card-body">
-                    <form asp-action="Edit" method="post" enctype="multipart/form-data">
-                        <input type="hidden" asp-for="IdUsuario" />
-                        <input type="hidden" asp-for="Salt" />
-                        <input type="hidden" asp-for="Pass" />
-                        <input type="hidden" asp-for="FechaCreacion" />
-
+                    <form asp-action="Perfil" method="post" enctype="multipart/form-data">
+                        
                         <div class="text-center mb-4">
-                            @if (!string.IsNullOrEmpty(Model.Imagen))
+                            @if (Context.User.FindFirst("Imagen").Value != null)
                             {
-                                <img src="@Model.Imagen" alt="@Model.Nombre" class="rounded-circle img-fluid mb-3" style="width: 120px; height: 120px; object-fit: cover; border: 3px solid var(--primary);">
+                                <img src="@Context.User.FindFirst("Imagen").Value" class="rounded-circle img-fluid mb-3" style="width: 120px; height: 120px; object-fit: cover; border: 3px solid var(--primary);">
                             }
                             else
                             {
-                                <img src="/images/default-avatar.png" alt="@Model.Nombre" class="rounded-circle img-fluid mb-3" style="width: 120px; height: 120px; object-fit: cover; border: 3px solid var(--primary);">
+                                <img src="/images/default-avatar.png" class="rounded-circle img-fluid mb-3" style="width: 120px; height: 120px; object-fit: cover; border: 3px solid var(--primary);">
                             }
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="Nombre" class="form-label">Nombre</label>
+                            <label class="form-label">Nombre</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa fa-user"></i></span>
-                                <input asp-for="Nombre" class="form-control" required />
+                                <input name="Nombre" value="@Context.User.Identity.Name" class="form-control" required />
                             </div>
-                            <span asp-validation-for="Nombre" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="Email" class="form-label">Correo Electrónico</label>
+                            <label class="form-label">Correo Electrónico</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa fa-envelope"></i></span>
-                                <input asp-for="Email" class="form-control" type="email" required />
+                                <input name="Email" value="@Context.User.FindFirst(ClaimTypes.Email).Value" class="form-control" type="email" required />
                             </div>
-                            <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
                             <label for="Imagen" class="form-label">Imagen de Perfil</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa fa-image"></i></span>
-                                <input type="text" id="Imagen" name="Imagen" class="form-control" value="@Model.Imagen" placeholder="URL de la imagen" />
+                                <input type="text" id="Imagen" name="Imagen" class="form-control" value="@Context.User.FindFirst("Imagen").Value" placeholder="URL de la imagen" />
                             </div>
                             <small class="form-text text-muted">Ingresa la URL de una imagen para tu perfil</small>
                         </div>
@@ -126,9 +115,9 @@
             </div>
         </div>
     </div>
-</div> *@
+</div> 
 
-@* @section Scripts {
+@section Scripts {
     <script>
         $(document).ready(function() {
             // Mostrar/ocultar campos de contraseña
@@ -168,4 +157,4 @@
             });
         });
     </script>
-} *@
+}
