@@ -36,7 +36,7 @@ namespace BeeyondScreen.Controllers
         {
             return View();
         }
-
+        // **** CORREGIR CAMBIAR CONTRASEÑA
         [HttpPost]
         public async Task<IActionResult> Perfil
             (Usuario usuario, string currentPassword,

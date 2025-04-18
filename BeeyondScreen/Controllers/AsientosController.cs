@@ -2,6 +2,7 @@
 using BeeyondScreen.Models;
 using Microsoft.AspNetCore.Mvc;
 using BeeyondScreen.Repositories;
+using System.Security.Claims;
 
 namespace BeeyondScreen.Controllers
 {
@@ -90,11 +91,11 @@ namespace BeeyondScreen.Controllers
                 asiento.Disponible
                 );
             // GENERAMOS LOS BOLETOS POR CADA ENTRADA QUE HAYAMOS ESCOGIDO
-            int idUsuario = HttpContext.Session.GetObject<Usuario>("USUARIOCLIENTE").IdUsuario;
+            int dato = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             int idBoleto = await this.repo.GetLastIdBoletoAsync();
             await this.repo.InsertBoletoAsync(
                 idBoleto,
-                idUsuario,
+                dato,
                 asiento.IdHorario,
                 idAsiento,
                 DateTime.Now,
