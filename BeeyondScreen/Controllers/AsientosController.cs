@@ -3,6 +3,7 @@ using BeeyondScreen.Models;
 using Microsoft.AspNetCore.Mvc;
 using BeeyondScreen.Repositories;
 using System.Security.Claims;
+using BeeyondScreen.Filters;
 
 namespace BeeyondScreen.Controllers
 {
@@ -77,6 +78,7 @@ namespace BeeyondScreen.Controllers
             return View(model);
 
         }
+        [AuthorizeUsers]
         [HttpPost]
         public async Task<IActionResult> AsientosReserva
             (Asiento asiento)

@@ -3,7 +3,7 @@ using System.Text;
 
 namespace BeeyondScreen.Helpers
 {
-    public class HelperCriptography
+    public class HelperCryptography
     {
         public static string GenerateSalt()
         {

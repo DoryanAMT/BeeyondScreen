@@ -52,8 +52,8 @@ namespace BeeyondScreen.Controllers
                 if (cambiarPassword)
                 {
                     // Verificar la contraseña actual
-                    byte[] passActual = HelperCriptography.EncryptPassword(currentPassword, usuarioActual.Salt);
-                    bool passCorrecta = HelperCriptography.CompararArrays(passActual, usuarioActual.Pass);
+                    byte[] passActual = HelperCryptography.EncryptPassword(currentPassword, usuarioActual.Salt);
+                    bool passCorrecta = HelperCryptography.CompararArrays(passActual, usuarioActual.Pass);
 
                     if (!passCorrecta)
                     {

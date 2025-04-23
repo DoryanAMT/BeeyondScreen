@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BeeyondScreen.Repositories
 {
-    public class RepositoryCine
+    public class RepositoryCine: IRepositoryCine
     {
         private CineContext context;
         public RepositoryCine(CineContext context)
@@ -466,7 +466,7 @@ namespace BeeyondScreen.Repositories
                 usuario.Email = email;
                 usuario.Imagen = imagen;
                 // Actualizar la contraseña
-                usuario.Pass = HelperCriptography.EncryptPassword(password, usuario.Salt);
+                usuario.Pass = HelperCryptography.EncryptPassword(password, usuario.Salt);
                 await this.context.SaveChangesAsync();
             }
         }
@@ -480,8 +480,8 @@ namespace BeeyondScreen.Repositories
             usuario.Nombre = nombre;
             usuario.Email = email;
             usuario.Imagen = imagen;
-            usuario.Salt = HelperCriptography.GenerateSalt();
-            usuario.Pass = HelperCriptography.EncryptPassword(password, usuario.Salt);
+            usuario.Salt = HelperCryptography.GenerateSalt();
+            usuario.Pass = HelperCryptography.EncryptPassword(password, usuario.Salt);
             usuario.FechaCreacion = DateTime.Now;
             this.context.Usuarios.Add(usuario);
             await this.context.SaveChangesAsync();
@@ -500,9 +500,9 @@ namespace BeeyondScreen.Repositories
             else
             {
                 string salt = usuario.Salt;
-                byte[] temp = HelperCriptography.EncryptPassword(password, salt);
+                byte[] temp = HelperCryptography.EncryptPassword(password, salt);
                 byte[] passBytes = usuario.Pass;
-                bool response = HelperCriptography.CompararArrays(temp, passBytes);
+                bool response = HelperCryptography.CompararArrays(temp, passBytes);
                 if (response == true)
                 {
 
